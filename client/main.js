@@ -17,7 +17,7 @@ Router.configure({
 Router.route('/', {
 	name: 'home',
 	waitOn: function () {
-		return [Meteor.subscribe("images"), Meteor.subscribe("pdfs"), Meteor.subscribe("users")];
+		return [Meteor.subscribe("images"), Meteor.subscribe("pdfs"), Meteor.subscribe("users"), Meteor.subscribe("records")];
 	},
 	action: function () {
 		this.render('Home');

@@ -10,3 +10,7 @@ Meteor.publish("pdfs", function () {
 Meteor.publish("users", function () {
 	return Meteor.users.find();
 });
+
+Meteor.publish("records", function () {
+	return Records.find();
+});

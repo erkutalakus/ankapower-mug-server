@@ -104,9 +104,16 @@ Router.route('/get/:_qrtext', function () {
 
 Router.route('/history', function () {
 	try {
-		var history = Meteor.users.findOne(this.request.headers['x-auth']).profile.recordHistory;
-		var data = history.map(function (item) {
-			return {id: item.id, title: Records.findOne(item.id).title, date: item.date};
+		let history = Meteor.users.findOne(this.request.headers['x-auth']).profile.recordHistory;
+		history = history.sort(function(f, s) {
+			if (f.date < s.date)
+				return 1;
+			else if (f.date > s.date)
+				return -1;
+			else return 0;
+		});
+		let data = history.map(function (item) {
+			return {id: item.id, title: Records.findOne(item.id).title, date: moment(item.date).format("MM.DD.YYYY HH:mm")};
 		});
 
 		returnResponse(this, {success: true, data: data});
