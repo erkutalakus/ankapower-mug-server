@@ -14,7 +14,7 @@ Router.route('/register', function () {
 			profile: {name: body.name, birthday: moment(body.birthday).toDate(), gender: body.gender}
 		});
 	} catch (e) {
-		returnResponse(this, {success: false, message: e.message});
+		returnResponse(this, {success: false, message: e.message, data: e});
 		return;
 	}
 	returnResponse(this, {success: !!id, data: { userId: id}});
@@ -23,7 +23,7 @@ Router.route('/register', function () {
 	name: 'register',
 	where: 'server'
 });
-//
+
 Router.route('/updatefcmtoken', function () {
 	let fcmToken = this.request.body.fcmToken;
 	if (!fcmToken) {
@@ -83,10 +83,23 @@ Router.route('/get/:_qrtext', function () {
 
 		this.response.end(JSON.stringify({success: true, data: data}));
 	} catch (e) {
-		this.response.end(JSON.stringify({success: false, message: e.message}));
+		this.response.end(JSON.stringify({success: false, message: e.message, data: e}));
 	}
 }, {
 	name: 'get',
+	where: 'server'
+});
+
+Router.route('/history', function () {
+	try {
+		//Meteor.users.findOne(this.request.headers['x-auth']).profile.recordHistory;
+
+		this.response.end(JSON.stringify({success: true, data: null}));
+	} catch (e) {
+		this.response.end(JSON.stringify({success: false, message: e.message, data: e}));
+	}
+}, {
+	name: 'history',
 	where: 'server'
 });
 
