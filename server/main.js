@@ -119,7 +119,7 @@ Router.route('/history', function () {
 			else return 0;
 		});
 		let data = history.map(function (item) {
-			return {id: item.id, title: Records.findOne(item.id).title, date: moment(item.date).format("MM.DD.YYYY HH:mm")};
+			return {id: item.id, title: Records.findOne(item.id).title, date: moment(item.date).add(3, 'hours').format("MM.DD.YYYY HH:mm")};
 		});
 
 		returnResponse(this, {success: true, data: data});
