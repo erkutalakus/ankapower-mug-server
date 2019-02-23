@@ -177,10 +177,6 @@ RecordsSchema = new SimpleSchema({
 		type: Number,
 		label: "Age Limit"
 	},
-	gender: {
-		type: String,
-		allowedValues: ['All', 'Male', 'Female']
-	},
 	counter: {
 		type: Number,
 		autoform: {
@@ -201,6 +197,5 @@ Records.allow({
 		return false;
 	}
 });
-
 
 Records.attachSchema(RecordsSchema);

@@ -41,9 +41,45 @@ Router.route('/updatefcmtoken', function () {
 
 Router.route('/get/:_qrtext', function () {
 	let qrId = this.params._qrtext;
-	Meteor.users.update(this.request.headers['x-auth'], { $push: { 'profile.recordHistory' : qrId} });
+	Meteor.users.update(this.request.headers['x-auth'], { $push: { 'profile.recordHistory' : qrId } });
 	Records.update(qrId, { $inc: { counter: 1 } });
-	this.response.end(JSON.stringify(Records.findOne(qrId)));
+
+	let data = {censored: null, original: Records.findOne(qrId), isCensored: false, isRestricted: false};
+
+	let user = Meteor.users.findOne(this.request.headers['x-auth']);
+	user.age = moment(user.profile.birthday).diff(moment(), 'years');
+	let record = Records.findOne(qrId);
+
+	if (record.minAge > user.age) {
+		data.isRestricted = true;
+		this.response.end(JSON.stringify({success: true, data: data}));
+		return;
+	}
+
+	record.texts = record.texts.filter(function(item) {
+		data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+		return !data.isCensored;
+	});
+	record.imageGroups = record.imageGroups.filter(function(item) {
+		data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+		return !data.isCensored;
+	});
+	record.imageGroups.images = record.imageGroups.images.filter(function(item) {
+		data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+		return !data.isCensored;
+	});
+	record.videos = record.videos.filter(function(item) {
+		data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+		return !data.isCensored;
+	});
+	record.documents = record.documents.filter(function(item) {
+		data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+		return !data.isCensored;
+	});
+
+	data.censored = record;
+
+	this.response.end(JSON.stringify({success: true, data: data}));
 }, {
 	name: 'get',
 	where: 'server'
