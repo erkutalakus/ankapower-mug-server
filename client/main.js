@@ -11,7 +11,7 @@ Router.configure({
 		return [];
 	},
 	notFoundTemplate: '_404',
-	loadingTemplate: '_Loading'
+	loadingTemplate: 'Loading'
 });
 
 Router.route('/', {
