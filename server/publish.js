@@ -1,4 +1,5 @@
 Meteor.publish("images", function () {
+	console.log('published');
 	return Images.find().cursor;
 });
 

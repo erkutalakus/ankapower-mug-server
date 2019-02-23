@@ -1,5 +1,5 @@
 Router.configure({
-	//layoutTemplate: 'MainLayout',
+	layoutTemplate: 'MainLayout',
 	onAfterAction: function () {
 
 	},
@@ -8,7 +8,7 @@ Router.configure({
 		this.next();
 	},
 	waitOn: function () {
-		return [Meteor.subscribe("images"), Meteor.subscribe("pdfs")];
+		return [];
 	},
 	notFoundTemplate: '_404',
 	loadingTemplate: '_Loading'
@@ -17,7 +17,7 @@ Router.configure({
 Router.route('/', {
 	name: 'home',
 	waitOn: function () {
-		return [];
+		return [Meteor.subscribe("images"), Meteor.subscribe("pdfs")];
 	},
 	action: function () {
 		this.render('Home');
