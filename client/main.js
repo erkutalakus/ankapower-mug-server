@@ -1,22 +1,35 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+Router.configure({
+	//layoutTemplate: 'MainLayout',
+	onAfterAction: function () {
 
-import './main.html';
-
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+	},
+	onBeforeAction: function() {
+		$(window).scrollTop(0);
+		this.next();
+	},
+	waitOn: function () {
+		return [];
+	},
+	notFoundTemplate: '_404',
+	loadingTemplate: '_Loading'
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
+Router.route('/', {
+	name: 'home',
+	waitOn: function () {
+		return [];
+	},
+	action: function () {
+		this.render('Home');
+	}
 });
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Router.route('/qr/:_qrtext', {
+	name: 'qr',
+	waitOn: function () {
+		return [];
+	},
+	action: function () {
+		this.render('QR');
+	}
 });

@@ -30,8 +30,7 @@ module.exports = {
       // If you are using ssl, it needs to start with https://
       ROOT_URL: 'https://mug.ankawiser.com',
       MONGO_URL: 'mongodb://mongodb/meteor',
-      MONGO_OPLOG_URL: 'mongodb://mongodb/local',
-      MAIL_URL: ""
+      MONGO_OPLOG_URL: 'mongodb://mongodb/local'
     },
 
     docker: {
@@ -56,10 +55,6 @@ module.exports = {
   // app when there are several apps
 
   proxy: {
-    domains: 'mug.ankawiser.com',
-    ssl: {
-      // Enable Let's Encrypt
-      letsEncryptEmail: 'info@ankawiser.com'
-    }
+    domains: 'mug.ankawiser.com'
   }
 };
