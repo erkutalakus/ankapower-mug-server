@@ -8,7 +8,7 @@ Router.configure({
 		this.next();
 	},
 	waitOn: function () {
-		return [];
+		return [Meteor.subscribe("images"), Meteor.subscribe("pdfs")];
 	},
 	notFoundTemplate: '_404',
 	loadingTemplate: '_Loading'
