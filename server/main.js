@@ -49,6 +49,11 @@ Router.route('/get/:_qrtext', function () {
 		let data = {censored: null, original: Records.findOne(qrId), isCensored: false, isRestricted: false};
 
 		let user = Meteor.users.findOne(this.request.headers['x-auth']);
+		if (!user) {
+			this.response.end(JSON.stringify({success: false, data: "Not authorized"}));
+			return;
+		}
+
 		user.age = moment(user.profile.birthday).diff(moment(), 'years');
 		let record = Records.findOne(qrId);
 

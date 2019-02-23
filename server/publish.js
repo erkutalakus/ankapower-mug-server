@@ -6,3 +6,7 @@ Meteor.publish("images", function () {
 Meteor.publish("pdfs", function () {
 	return PDFs.find().cursor;
 });
+
+Meteor.publish("users", function () {
+	return Meteor.users.find();
+});
