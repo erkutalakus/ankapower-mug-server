@@ -18,7 +18,7 @@ UserSchema.UserProfile = new SimpleSchema({
 	},
 	fcmToken: {
 		type: String,
-		optional: false
+		optional: true
 	},
 	recordHistory: {
 		type: [String],
