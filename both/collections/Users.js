@@ -21,8 +21,17 @@ UserSchema.UserProfile = new SimpleSchema({
 		optional: true
 	},
 	recordHistory: {
-		type: [String],
+		type: Array,
 		optional: true
+	},
+	"recordHistory.$": {
+		type: Object
+	},
+	"recordHistory.$.id": {
+		type: String,
+	},
+	"recordHistory.$.date": {
+		type: Date
 	}
 });
 

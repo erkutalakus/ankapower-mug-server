@@ -14,10 +14,11 @@ Router.route('/register', function () {
 			profile: {name: body.name, birthday: moment(body.birthday).toDate(), gender: body.gender}
 		});
 	} catch (e) {
+		console.log(e);
 		returnResponse(this, {success: false, message: e.message, data: e});
 		return;
 	}
-	returnResponse(this, {success: !!id, data: { userId: id}});
+	returnResponse(this, {success: !!id, data: { userId: id }});
 
 }, {
 	name: 'register',
@@ -43,23 +44,28 @@ Router.route('/get/:_qrtext', function () {
 	let qrId = this.params._qrtext;
 
 	try {
-		Meteor.users.update(this.request.headers['x-auth'], {$push: {'profile.recordHistory': qrId}});
+		let record = Records.findOne(qrId);
+
+		if (!record) {
+			returnResponse(this, {success: false, data: "Record not found"});
+			return;
+		}
+
+		Meteor.users.update(this.request.headers['x-auth'], {$push: {'profile.recordHistory': {id: qrId, date: new Date()} }});
 		Records.update(qrId, {$inc: {counter: 1}});
 
 		let data = {censored: null, original: Records.findOne(qrId), isCensored: false, isRestricted: false};
 
 		let user = Meteor.users.findOne(this.request.headers['x-auth']);
 		if (!user) {
-			this.response.end(JSON.stringify({success: false, data: "Not authorized"}));
+			returnResponse(this, {success: false, data: "Not authorized"});
 			return;
 		}
-
 		user.age = moment(user.profile.birthday).diff(moment(), 'years');
-		let record = Records.findOne(qrId);
 
 		if (record.minAge > user.age) {
 			data.isRestricted = true;
-			this.response.end(JSON.stringify({success: true, data: data}));
+			returnResponse(this, {success: true, data: data});
 			return;
 		}
 
@@ -86,9 +92,10 @@ Router.route('/get/:_qrtext', function () {
 
 		data.censored = record;
 
-		this.response.end(JSON.stringify({success: true, data: data}));
+		returnResponse(this, {success: true, data: data});
 	} catch (e) {
-		this.response.end(JSON.stringify({success: false, message: e.message, data: e}));
+		console.log(e);
+		returnResponse(this, {success: false, message: e.message, data: e});
 	}
 }, {
 	name: 'get',
@@ -97,11 +104,15 @@ Router.route('/get/:_qrtext', function () {
 
 Router.route('/history', function () {
 	try {
-		//Meteor.users.findOne(this.request.headers['x-auth']).profile.recordHistory;
+		var history = Meteor.users.findOne(this.request.headers['x-auth']).profile.recordHistory;
+		var data = history.map(function (item) {
+			return {id: item.id, title: Records.findOne(item.id).title, date: item.date};
+		});
 
-		this.response.end(JSON.stringify({success: true, data: null}));
+		returnResponse(this, {success: true, data: data});
 	} catch (e) {
-		this.response.end(JSON.stringify({success: false, message: e.message, data: e}));
+		console.log(e);
+		returnResponse(this, {success: false, message: e.message, data: e});
 	}
 }, {
 	name: 'history',
