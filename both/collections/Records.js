@@ -7,7 +7,7 @@ VideoRecordsSchema = new SimpleSchema({
 	},
 	url: {
 		type: String,
-		label: "Video Link"
+		label: "Youtube Video Id"
 	},
 	rank: {
 		type: Number,
