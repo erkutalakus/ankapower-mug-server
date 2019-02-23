@@ -106,7 +106,7 @@ Router.route('/file/:id', function () {
 	// Set the headers
 	this.response.writeHead(200, {
 		'Content-Type': fileCursor.mime,
-		'Content-Disposition': 'attachment; filename=' + fileCursor.name,
+		//'Content-Disposition': 'attachment; filename=' + fileCursor.name,
 		'Content-Length': stat.size
 	});
 
