@@ -23,7 +23,7 @@ Router.route('/register', function () {
 	name: 'register',
 	where: 'server'
 });
-
+//
 Router.route('/updatefcmtoken', function () {
 	let fcmToken = this.request.body.fcmToken;
 	if (!fcmToken) {
@@ -72,7 +72,3 @@ Router.route('/file/:id', function () {
 	name: 'fileCursor',
 	where: 'server'
 });
-
-function returnResponse(routerContext, response) {
-	routerContext.response.end(JSON.stringify(response));
-}

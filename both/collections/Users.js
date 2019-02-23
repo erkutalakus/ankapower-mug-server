@@ -29,7 +29,6 @@ UserSchema.User = new SimpleSchema({
 		// optional here because the accounts-password package does its own validation.
 		// Third-party login packages may not require either. Adjust this schema as necessary for your usage.
 		optional: true,
-		regEx: /^[1-9][0-9]{9}[02468]$/,
 		autoform: {
 			type: 'hidden'
 		}

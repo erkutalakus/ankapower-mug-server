@@ -16,3 +16,7 @@ urlize = function(str) {
         return result;
     }
 };
+
+returnResponse = function(routerContext, response) {
+	routerContext.response.end(JSON.stringify(response));
+};
