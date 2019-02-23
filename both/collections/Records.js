@@ -185,7 +185,8 @@ RecordsSchema = new SimpleSchema({
 		type: Number,
 		autoform: {
 			type: 'hidden'
-		}
+		},
+		defaultValue: 0
 	}
 });
 
