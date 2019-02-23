@@ -105,6 +105,12 @@ Router.route('/get/:_qrtext', function () {
 Router.route('/history', function () {
 	try {
 		let history = Meteor.users.findOne(this.request.headers['x-auth']).profile.recordHistory;
+
+		if (!history) {
+			returnResponse(this, {success: true, data: []});
+			return;
+		}
+
 		history = history.sort(function(f, s) {
 			if (f.date < s.date)
 				return 1;
