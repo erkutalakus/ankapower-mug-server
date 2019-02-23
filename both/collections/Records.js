@@ -136,6 +136,12 @@ RecordsSchema = new SimpleSchema({
 		type: [LocationRecordsSchema],
 		label: "Locations",
 		optional: true
+	},
+	counter: {
+		type: Number,
+		autoform: {
+			type: 'hidden'
+		}
 	}
 });
 

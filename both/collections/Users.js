@@ -19,6 +19,10 @@ UserSchema.UserProfile = new SimpleSchema({
 	fcmToken: {
 		type: String,
 		optional: false
+	},
+	recordHistory: {
+		type: [String],
+		optional: true
 	}
 });
 

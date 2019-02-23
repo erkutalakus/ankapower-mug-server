@@ -40,7 +40,10 @@ Router.route('/updatefcmtoken', function () {
 });
 
 Router.route('/get/:_qrtext', function () {
-	this.response.end(JSON.stringify(Records.findOne(this.params._qrtext)));
+	let qrId = this.params._qrtext;
+	Meteor.users.update(this.request.headers['x-auth'], { $push: { 'profile.recordHistory' : qrId} });
+	Records.update(qrId, { $inc: { counter: 1 } });
+	this.response.end(JSON.stringify(Records.findOne(qrId)));
 }, {
 	name: 'get',
 	where: 'server'
