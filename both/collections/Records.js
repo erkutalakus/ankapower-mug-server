@@ -143,6 +143,21 @@ LocationRecordsSchema = new SimpleSchema({
 	}
 });
 
+DateRecordsSchema = new SimpleSchema({
+	title: {
+		type: String,
+		label: "Date Title"
+	},
+	date: {
+		type: Date,
+		label: "Date"
+	},
+	rank: {
+		type: Number,
+		label: "Rank"
+	}
+});
+
 RecordsSchema = new SimpleSchema({
 	title: {
 		type: String,
@@ -171,6 +186,11 @@ RecordsSchema = new SimpleSchema({
 	locations: {
 		type: [LocationRecordsSchema],
 		label: "Locations",
+		optional: true
+	},
+	dates: {
+		type: [DateRecordsSchema],
+		label: "Dates",
 		optional: true
 	},
 	minAge: {
