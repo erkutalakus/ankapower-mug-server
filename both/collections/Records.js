@@ -12,6 +12,14 @@ VideoRecordsSchema = new SimpleSchema({
 	rank: {
 		type: Number,
 		label: "Rank"
+	},
+	minAge: {
+		type: Number,
+		label: "Age Limit"
+	},
+	gender: {
+		type: String,
+		allowedValues: ['All', 'Male', 'Female']
 	}
 });
 
@@ -25,6 +33,14 @@ ImageRecordsSchema = new SimpleSchema({
 				collection: 'Images'
 			}
 		}
+	},
+	minAge: {
+		type: Number,
+		label: "Age Limit"
+	},
+	gender: {
+		type: String,
+		allowedValues: ['All', 'Male', 'Female']
 	}
 });
 
@@ -68,6 +84,14 @@ TextRecordsSchema = new SimpleSchema({
 	rank: {
 		type: Number,
 		label: "Rank"
+	},
+	minAge: {
+		type: Number,
+		label: "Age Limit"
+	},
+	gender: {
+		type: String,
+		allowedValues: ['All', 'Male', 'Female']
 	}
 });
 
@@ -89,6 +113,14 @@ DocumentRecordsSchema = new SimpleSchema({
 	rank: {
 		type: Number,
 		label: "Rank"
+	},
+	minAge: {
+		type: Number,
+		label: "Age Limit"
+	},
+	gender: {
+		type: String,
+		allowedValues: ['All', 'Male', 'Female']
 	}
 });
 
@@ -112,6 +144,10 @@ LocationRecordsSchema = new SimpleSchema({
 });
 
 RecordsSchema = new SimpleSchema({
+	title: {
+		type: String,
+		label: "Main Title"
+	},
 	imageGroups: {
 		type: [ImageGroupRecordsSchema],
 		label: "ImageGroups",
@@ -136,6 +172,14 @@ RecordsSchema = new SimpleSchema({
 		type: [LocationRecordsSchema],
 		label: "Locations",
 		optional: true
+	},
+	minAge: {
+		type: Number,
+		label: "Age Limit"
+	},
+	gender: {
+		type: String,
+		allowedValues: ['All', 'Male', 'Female']
 	},
 	counter: {
 		type: Number,
