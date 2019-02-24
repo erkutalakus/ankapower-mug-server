@@ -1,48 +1,46 @@
 <template name="MainLayout">
-	<div class="site-wrapper">
-
-		<div class="site-wrapper-inner">
-
-			<div class="cover-container">
 
 			{{> Header }}
 
 			{{> Body }}
 
 			{{> Footer }}
-
-			</div>
-
-		</div>
-
-	</div>
 </template>
 
 <template name="Header">
-	<div class="masthead clearfix">
-		<div class="inner">
-			<img src="/logo.png" width="75" style="position: absolute;left: -67px;top: 17px;"><h3 class="masthead-brand">Cover</h3>
-			<nav>
-				<ul class="nav masthead-nav">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">QR</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
 					<li><a href="{{pathFor route='home'}}">Home</a></li>
 					<li><a href="{{pathFor route='new'}}">New Content</a></li>
 					<li><a href="{{pathFor route='lockbagcreate'}}">New Locked Link</a></li>
 				</ul>
-			</nav>
+			</div><!--/.nav-collapse -->
 		</div>
-	</div>
+	</nav>
+
 </template>
 
 <template name="Body">
-	<div class="inner cover">
+	<div class="container">
 		{{> yield}}
 	</div>
 </template>
 
 <template name="Footer">
-	<div class="mastfoot">
-		<div class="inner">
-			<p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">©AnkaPower</p>
 		</div>
-	</div>
+	</footer>
 </template>
