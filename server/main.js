@@ -172,6 +172,7 @@ Router.route('/unlock/:lockid', function () {
 		user.age = moment().diff(moment(user.profile.birthday), 'years');
 		if (user.age < LockBags.findOne(lock.lockbagId).minAge) {
 			returnResponse(this, {success: false, message: "restricted"});
+			return;
 		}
 
 		Locks.update(lockid, {$set : { locked : false }});
