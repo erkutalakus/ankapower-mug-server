@@ -1,7 +1,9 @@
 <template name="QR">
-	<div class="text-center" style="width:100%">
+	<div id="printable" class="text-center" style="width:100%">
 		<h1>{{RecordTitle}}</h1>
 		{{>qrcode text=QRText size=256}}
 		<p>Age: {{RecordMinAge}}+</p>
 	</div>
+	<p></p>
+	<div class="text-right"><button class="btn btn-primary" onclick="window.print()">Print QR</button></div>
 </template>
