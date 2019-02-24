@@ -69,26 +69,35 @@ Router.route('/get/:_qrtext', function () {
 			return;
 		}
 
-		record.texts = record.texts.filter(function (item) {
-			data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
-			return !data.isCensored;
-		});
-		record.imageGroups = record.imageGroups.filter(function (item) {
-			data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
-			return !data.isCensored;
-		});
-		record.imageGroups.images = record.imageGroups.images.filter(function (item) {
-			data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
-			return !data.isCensored;
-		});
-		record.videos = record.videos.filter(function (item) {
-			data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
-			return !data.isCensored;
-		});
-		record.documents = record.documents.filter(function (item) {
-			data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
-			return !data.isCensored;
-		});
+		if (record.texts)
+			record.texts = record.texts.filter(function (item) {
+				data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+				return !data.isCensored;
+			});
+		
+		if (record.imageGroups) {
+			record.imageGroups = record.imageGroups.filter(function (item) {
+				data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+				return !data.isCensored;
+			});
+			if (record.imageGroups.images)
+				record.imageGroups.images = record.imageGroups.images.filter(function (item) {
+					data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+					return !data.isCensored;
+				});
+		}
+
+		if (record.videos)
+			record.videos = record.videos.filter(function (item) {
+				data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+				return !data.isCensored;
+			});
+
+		if (record.documents)
+			record.documents = record.documents.filter(function (item) {
+				data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
+				return !data.isCensored;
+			});
 
 		data.censored = record;
 
