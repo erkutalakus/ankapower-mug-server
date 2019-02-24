@@ -24,6 +24,16 @@ Router.route('/', {
 	}
 });
 
+Router.route('/new', {
+	name: 'new',
+	waitOn: function () {
+		return [Meteor.subscribe("images"), Meteor.subscribe("pdfs"), Meteor.subscribe("users"), Meteor.subscribe("records")];
+	},
+	action: function () {
+		this.render('New');
+	}
+});
+
 Router.route('/qr/:_qrtext', {
 	name: 'qr',
 	waitOn: function () {
