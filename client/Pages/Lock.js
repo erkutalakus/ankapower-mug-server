@@ -2,12 +2,20 @@ Template.Lock.helpers({
 	'Lock': () => {
 		let lockId = Router.current().params.lockid;
 		let lock = Locks.findOne(lockId);
-		console.log(lock);
+
 		if (lock.locked) {
 			return lock;
 		}
-		console.log(window);
+
 		window.location = LockBags.findOne(lock.lockbagId).link;
+	},
+	'getLockBagTitle': (lock) => {
+		let lockbag = LockBags.findOne(lock.lockbagId);
+		return lockbag.title;
+	},
+	'getLockBagAge': (lock) => {
+		let lockbag = LockBags.findOne(lock.lockbagId);
+		return lockbag.minAge;
 	},
 	"QRText": (lock) => {
 		return 'unlock' + lock._id;

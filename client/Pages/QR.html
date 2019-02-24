@@ -1,3 +1,7 @@
 <template name="QR">
-	{{>qrcode text=QRText size=256}}
+	<div class="text-center" style="width:100%">
+		<h1>{{RecordTitle}}</h1>
+		{{>qrcode text=QRText size=256}}
+		<p>Age: {{RecordMinAge}}+</p>
+	</div>
 </template>

@@ -37,7 +37,7 @@ Router.route('/new', {
 Router.route('/qr/:_qrtext', {
 	name: 'qr',
 	waitOn: function () {
-		return [];
+		return [Meteor.subscribe("records")];
 	},
 	action: function () {
 		this.render('QR');

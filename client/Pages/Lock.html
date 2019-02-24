@@ -1,3 +1,7 @@
 <template name="Lock">
-	{{>qrcode text=(QRText Lock) size=256}}
+	<div class="text-center" style="width:100%">
+		<h1>{{getLockBagTitle Lock}}</h1>
+		{{>qrcode text=(QRText Lock) size=256}}
+		<p>Age: {{getLockBagAge Lock}}+</p>
+	</div>
 </template>

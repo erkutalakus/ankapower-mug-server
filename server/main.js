@@ -74,7 +74,7 @@ Router.route('/get/:_qrtext', function () {
 				data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
 				return !data.isCensored;
 			});
-		
+
 		if (record.imageGroups) {
 			record.imageGroups = record.imageGroups.filter(function (item) {
 				data.isCensored = data.isCensored || item.minAge > user.age || (item.gender !== 'All' && item.gender !== user.profile.gender);
