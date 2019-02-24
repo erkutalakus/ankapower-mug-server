@@ -33,3 +33,45 @@ Router.route('/qr/:_qrtext', {
 		this.render('QR');
 	}
 });
+
+Router.route('/lockbagcreated/:lockbagid', {
+	name: 'lockbagcreated',
+	waitOn: function () {
+		return [Meteor.subscribe("lockbags")];
+	},
+	action: function () {
+		this.render('LockBagCreated')
+	}
+});
+
+Router.route('/lockbagcreate', {
+	name: 'lockbagcreate',
+	waitOn: function () {
+		return [Meteor.subscribe("lockbags")];
+	},
+	action: function () {
+		this.render('LockBagCreate')
+	}
+});
+
+Router.route('/lockbag/:lockbagid', {
+	name: 'lockbag',
+	waitOn: function () {
+		return [Meteor.subscribe("lockbags"), Meteor.subscribe("locks")];
+	},
+	action: function () {
+		let lockbagId = Router.current().params.lockbagid;
+		let lockId = Locks.insert({lockbagId: lockbagId});
+		Router.go('lock', {lockid: lockId});
+	}
+});
+
+Router.route('/lock/:lockid', {
+	name: 'lock',
+	waitOn: function () {
+		return [Meteor.subscribe("lockbags"), Meteor.subscribe("locks")];
+	},
+	action: function () {
+		this.render('Lock');
+	}
+});

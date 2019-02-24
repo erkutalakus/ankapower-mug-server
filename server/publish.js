@@ -1,5 +1,4 @@
 Meteor.publish("images", function () {
-	console.log('published');
 	return Images.find().cursor;
 });
 
@@ -13,4 +12,12 @@ Meteor.publish("users", function () {
 
 Meteor.publish("records", function () {
 	return Records.find();
+});
+
+Meteor.publish("lockbags", function () {
+	return LockBags.find();
+});
+
+Meteor.publish("locks", function () {
+	return Locks.find();
 });

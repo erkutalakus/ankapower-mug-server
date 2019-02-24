@@ -61,7 +61,7 @@ Router.route('/get/:_qrtext', function () {
 			returnResponse(this, {success: false, data: "Not authorized"});
 			return;
 		}
-		user.age = moment(user.profile.birthday).diff(moment(), 'years');
+		user.age = moment().diff(moment(user.profile.birthday), 'years');
 
 		if (record.minAge > user.age) {
 			data.isRestricted = true;
@@ -156,5 +156,32 @@ Router.route('/file/:id', function () {
 	fs.createReadStream(fileCursor.path).pipe(this.response);
 }, {
 	name: 'fileCursor',
+	where: 'server'
+});
+
+Router.route('/unlock/:lockid', function () {
+	try {
+		let user = Meteor.users.findOne(this.request.headers['x-auth']);
+		let lockid = this.params.lockid;
+		if (!user) {
+			returnResponse(this, {success: false, message: "user not found"});
+			return;
+		}
+
+		let lock = Locks.findOne(lockid);
+		user.age = moment().diff(moment(user.profile.birthday), 'years');
+		if (user.age < LockBags.findOne(lock.lockbagId).minAge) {
+			returnResponse(this, {success: false, message: "restricted"});
+		}
+
+		Locks.update(lockid, {$set : { locked : false }});
+
+		returnResponse(this, {success: true, message: "unlocked"});
+	} catch (e) {
+		console.log(e);
+		returnResponse(this, {success: false, message: e.message, data: e});
+	}
+}, {
+	name: 'unlock',
 	where: 'server'
 });
